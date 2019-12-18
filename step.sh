@@ -1,9 +1,12 @@
 #!/bin/bash
-set -ex
+if [ "${debug}" == "true" ]; then
+  set -ex
+fi
 # avoid globbing (expansion of *).
 set -f
 
 # Environment variables we depend on
+declare debug
 declare github_pat
 declare github_release_tag
 declare files_to_attach_list
@@ -12,16 +15,21 @@ declare files_to_attach_list
 echo "Adding ${files_to_attach_list} to Github release ${github_release_tag}"
 
 files_to_attach_array=(${files_to_attach_list//|/ })
-echo "Unwrapped files_to_attach_list to these files:" "${files_to_attach_array[@]}"
+if [ "${debug}" == "true" ]; then
+  echo "Unwrapped files_to_attach_list to these files:" "${files_to_attach_array[@]}"
+fi
 
 assets=()
 for f in "${files_to_attach_array[@]}"; do
   [ -f "${BITRISE_SOURCE_DIR}/$f" ] && assets+=(--attach "${BITRISE_SOURCE_DIR}/$f");
 done
+if [ "${debug}" == "true" ]; then
+  echo "Found these files:" "${assets[@]}"
+fi
 
-echo "Found these files:" "${assets[@]}"
-
-export HUB_VERBOSE="true"
+if [ "${debug}" == "true" ]; then
+  export HUB_VERBOSE="true"
+fi
 export GITHUB_TOKEN="${github_pat}"
 hub release edit -m "" "${assets[@]}" "${github_release_tag}"
 

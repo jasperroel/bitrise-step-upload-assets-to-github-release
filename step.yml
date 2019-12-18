@@ -61,6 +61,16 @@ toolkit:
 
 
 inputs:
+  - debug: false
+    opts:
+      title: Debug this step
+      summary: |
+        Enables "hub" debug output
+      description: |
+        Enables "hub" debug output
+      is_expand: true
+      is_required: false
+      value_options: []
   - github_pat:
     opts:
       title: Github Personal Access Token
@@ -71,6 +81,7 @@ inputs:
         Uploads any asset to a existing Github Release
       is_expand: true
       is_required: true
+      is_sensitive: true
       value_options: []
   - github_release_tag: $BITRISE_GIT_TAG
     opts:
@@ -93,13 +104,3 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
-
-outputs:
-  - EXAMPLE_STEP_OUTPUT:
-    opts:
-      title: "Example Step Output"
-      summary: Summary. No more than 2-3 sentences.
-      description: |
-        Description of this output.
-
-        Can be Markdown formatted text.

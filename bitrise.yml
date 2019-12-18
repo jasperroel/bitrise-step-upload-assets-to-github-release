@@ -40,9 +40,11 @@ workflows:
           file if you would not specify another value.
         run_if: true
         inputs:
+        - debug: false
         - github_pat: test-pat
         - github_release_tag: v1.0.0
         - files_to_attach_list: README.md
+
     - script:
         inputs:
         - content: |
