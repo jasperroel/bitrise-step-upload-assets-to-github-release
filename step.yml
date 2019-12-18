@@ -13,6 +13,7 @@ summary: |
   Upload assets to Github Release
 description: |
   Attach asset(s) from your build to an existing Github Release. When building a tag, the Release will be looked via that tag.
+  By default, it will try and cache all Android and iOS artifacts.
 website: https://github.com/jasperroel/bitrise-step-upload-assets-to-github-release
 source_code_url: https://github.com/jasperroel/bitrise-step-upload-assets-to-github-release
 support_url: https://github.com/jasperroel/bitrise-step-upload-assets-to-github-release/issues
@@ -52,11 +53,7 @@ run_if: ""
 deps:
   brew:
   - name: git
-  - name: wget
-  apt_get:
-  - name: git
-  - name: wget
-
+  - name: hub
 
 toolkit:
   bash:
@@ -64,14 +61,35 @@ toolkit:
 
 
 inputs:
-  - example_step_input: Default Value - you can leave this empty if you want to
+  - github_pat:
     opts:
-      title: "Example Step Input"
-      summary: Summary. No more than 2-3 sentences.
+      title: Github Personal Access Token
+      summary: |
+        A Github Personal Access Token that can write to a Release.
+        Should have at least `repo` permission to the repository (/organisation).
       description: |
-        Description of this input.
-
-        Can be Markdown formatted text.
+        Uploads any asset to a existing Github Release
+      is_expand: true
+      is_required: true
+      value_options: []
+  - github_release_tag: $BITRISE_GIT_TAG
+    opts:
+      title: Github Release name
+      summary: |
+        The Github Release to attach the files to. Should be the URL slug name (for example: `v3.15.0-21419`).
+      description: |
+        The Github Release to attach the files to. Should be the URL slug name (for example: `v3.15.0-21419`).
+        Defaults to the tag currently building.
+      is_expand: true
+      is_required: true
+      value_options: []
+  - files_to_attach_list: "$BITRISE_APK_PATH_LIST|$BITRISE_IPA_PATH"
+    opts:
+      title: File(s) to attach.
+      summary: |
+        The file(s) to attach to the Release
+      description: |
+        The file(s) to attach to the Release. Can be a |-seperated list. Each item will be bash-expanded and uploaded individually.
       is_expand: true
       is_required: true
       value_options: []

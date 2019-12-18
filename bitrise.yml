@@ -7,7 +7,7 @@ app:
   - A_SECRET_PARAM: $A_SECRET_PARAM
   # If you want to share this step into a StepLib
   - BITRISE_STEP_ID: upload-assets-to-github-release
-  - BITRISE_STEP_VERSION: "0.0.1"
+  - BITRISE_STEP_VERSION: "1.0.0"
   - BITRISE_STEP_GIT_CLONE_URL: https://github.com/jasperroel/bitrise-step-upload-assets-to-github-release.git
   - MY_STEPLIB_REPO_FORK_GIT_URL: $MY_STEPLIB_REPO_FORK_GIT_URL
 
@@ -40,7 +40,9 @@ workflows:
           file if you would not specify another value.
         run_if: true
         inputs:
-        - example_step_input: Example Step Input's value
+        - github_pat: test-pat
+        - github_release_tag: v1.0.0
+        - files_to_attach_list: README.md
     - script:
         inputs:
         - content: |

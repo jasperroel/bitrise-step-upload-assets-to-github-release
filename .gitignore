@@ -1,2 +1,8 @@
 .bitrise*
 .gows.user.yml
+
+# Intellij
+.idea
+*.iml
+
+_tmp/
