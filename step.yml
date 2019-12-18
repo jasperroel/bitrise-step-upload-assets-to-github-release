@@ -55,6 +55,11 @@ deps:
   - name: git
   - name: hub
 
+  apt:
+  - name: git
+  - name: hub
+
+
 toolkit:
   bash:
     entry_file: step.sh
@@ -70,7 +75,10 @@ inputs:
         Enables "hub" debug output
       is_expand: true
       is_required: false
-      value_options: []
+      value_options:
+        - "true"
+        - "false"
+
   - github_pat:
     opts:
       title: Github Personal Access Token
