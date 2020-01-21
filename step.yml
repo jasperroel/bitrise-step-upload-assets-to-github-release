@@ -52,11 +52,9 @@ run_if: ""
 
 deps:
   brew:
-  - name: git
   - name: hub
 
   apt:
-  - name: git
   - name: hub
 
 
@@ -66,7 +64,7 @@ toolkit:
 
 
 inputs:
-  - debug: false
+  - debug: no
     opts:
       title: Debug this step
       summary: |
@@ -76,10 +74,10 @@ inputs:
       is_expand: true
       is_required: false
       value_options:
-        - "true"
-        - "false"
+        - "yes"
+        - "no"
 
-  - github_pat:
+  - personal_access_token:
     opts:
       title: Github Personal Access Token
       summary: |
@@ -91,6 +89,7 @@ inputs:
       is_required: true
       is_sensitive: true
       value_options: []
+
   - github_release_tag: $BITRISE_GIT_TAG
     opts:
       title: Github Release name
@@ -102,7 +101,8 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
-  - files_to_attach_list: "$BITRISE_APK_PATH_LIST|$BITRISE_IPA_PATH"
+
+  - files_to_attach_list: "$BITRISE_APK_PATH_LIST|$BITRISE_AAB_PATH_LIST|$BITRISE_IPA_PATH"
     opts:
       title: File(s) to attach.
       summary: |
@@ -112,3 +112,32 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
+
+  - create_release: no
+    opts:
+      title: Create a Github release if it does not exist yet
+      summary: |
+        If no release is associated with this tag yet, create one automatically.
+      description: |
+        If no release is associated with this tag yet, create one automatically.
+      is_expand: true
+      is_required: false
+      value_options:
+        - "yes"
+        - "no"
+
+  - ignore_errors: no
+    opts:
+      title: Do not return an error code if adding assets to a release fails
+      summary: |
+        Do not return an error code if adding assets to a release fails or when no assets are found
+      description: |
+        For example, if only a tag exists (but not an associated release), this might be okay to ignore.
+        If so, set this to "yes".
+        
+        Be aware the script might still fail on other parts (such as creating a release)
+      is_expand: true
+      is_required: false
+      value_options:
+        - "yes"
+        - "no"
