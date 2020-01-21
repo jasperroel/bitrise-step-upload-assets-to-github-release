@@ -50,7 +50,7 @@ RELEASE_NOTES=$(hub release show "${github_release_tag}")
 RELEASE_NOTES_EXIST=$?
 
 if [ "$RELEASE_NOTES_EXIST" -ne 0 ] && [ "$create_release" == "yes" ]; then
-  hub release create -m "" -t "${github_release_tag}" "${github_release_tag}"
+  hub release create -m "${github_release_tag}" "${github_release_tag}"
 fi
 
 RELEASE_EDIT=$(hub release edit -m "" "${assets[@]}" "${github_release_tag}")
