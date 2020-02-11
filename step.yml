@@ -102,7 +102,7 @@ inputs:
       is_required: true
       value_options: []
 
-  - files_to_attach_list: "$BITRISE_APK_PATH_LIST|$BITRISE_AAB_PATH_LIST|$BITRISE_IPA_PATH"
+  - files_to_attach_list: "$BITRISE_APK_PATH_LIST|$BITRISE_AAB_PATH_LIST|$BITRISE_IPA_PATH|$BITRISE_MAPPING_PATH"
     opts:
       title: File(s) to attach.
       summary: |
