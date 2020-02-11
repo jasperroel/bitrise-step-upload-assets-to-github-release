@@ -25,7 +25,7 @@ fi
 
 assets=()
 for f in "${files_to_attach_array[@]}"; do
-  [ -f "${BITRISE_SOURCE_DIR}/$f" ] && assets+=(--attach "${BITRISE_SOURCE_DIR}/$f");
+  [ -f "$f" ] && assets+=(--attach "$f");
 done
 
 if [ "${#assets[@]}" -eq 0 ]; then
